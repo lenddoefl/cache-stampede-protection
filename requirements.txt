@@ -1,0 +1,3 @@
+Django
+django-redis-cache
+python-redis-lock
