@@ -26,7 +26,7 @@ Set up the Django project (only has to be done once):
 
 ### `threading.Lock` Example:
 ```
-> DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_therading.py
+> DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_threading.py
 ```
 
 ### `python-redis-lock` Example:
