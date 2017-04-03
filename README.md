@@ -2,9 +2,11 @@
 This is a companion repo for the blog post, "Preventing Cache Stampedes Using
 python-redis-lock" on the EFL Technology Blog.
 
-It contains two example scripts that show how to use locks to prevent "cache
+It contains three example scripts that show how to use locks to prevent "cache
 stampedes" when cached values become stale:
 
+- `cache_stampede/example_no_protection.py` shows what happens during a cache
+  stampede.
 - `cache_stampede/example_threading.py` proves the concept by using
   `threading.Lock` to control access to the cache among multiple threads in a
   single process.
