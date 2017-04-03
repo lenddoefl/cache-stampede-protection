@@ -13,8 +13,6 @@ stampedes" when cached values become stale:
   even multiple servers.
 
 ## Running the Examples
-To run the example scripts:
-
 Set up the Django project (only has to be done once):
 
 1. [Create a virtualenv](https://virtualenvwrapper.readthedocs.io/en/latest/),
@@ -24,12 +22,37 @@ Set up the Django project (only has to be done once):
   if necessary (by default it is configured to connect to `localhost:6379`).
 4. `cd` to the root directory of the project.
 
-### `threading.Lock` Example:
+To run the example scripts, execute the following commands (tested in bash and
+zsh):
+
+### Cache Stampede Example:
+This is the "control group", showing what happens during a cache stampede.
+```bash
+redis-cli -n 1 FLUSHDB
+DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_no_protection.py
 ```
-> DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_threading.py
+
+### `threading.Lock` Example:
+This example uses `threading.Lock` to prevent a cache stampede.
+```bash
+redis-cli -n 1 FLUSHDB
+DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_threading.py
 ```
 
 ### `python-redis-lock` Example:
+This example uses `python-redis-lock` to prevent a cache stampede.
+```bash
+redis-cli -n 1 FLUSHDB
+for _ in {1..5}; do DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_redis.py & done
 ```
-> for _ in {1..5}; do DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_redis.py & done
-```
+
+You may see a single `UNLOCK_SCRIPT not cached.` warning in the output.
+
+Releasing a lock requires several commands that must run atomically (this
+requires a [LUA script](https://redis.io/commands/eval)).  For better
+performance, `python-redis-lock` uses the
+[EVALSHA](https://redis.io/commands/evalsha) command so that the LUA script gets
+cached after the first time it is eval'd.
+
+`UNLOCK_SCRIPT not cached.` simply means that the LUA script to release a lock
+hasn't been cached by Redis yet.  It is safe to ignore this warning.

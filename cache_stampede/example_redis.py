@@ -69,4 +69,7 @@ def maybe_cache(cache_key, func):
   return result
 
 if __name__ == '__main__':
+  # Note that we don't use threads in this case.
+  # Instead we will background several processes using a loop in the
+  # shell.  See the README file for more info.
   maybe_cache('some_other_key', expensive_computation)
