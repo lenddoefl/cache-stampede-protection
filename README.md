@@ -15,6 +15,8 @@ stampedes" when cached values become stale:
   even multiple servers.
 
 ## Running the Examples
+This project is compatible with Python 3.6 and 2.7.
+
 Set up the Django project (only has to be done once):
 
 1. [Create a virtualenv](https://virtualenvwrapper.readthedocs.io/en/latest/),
