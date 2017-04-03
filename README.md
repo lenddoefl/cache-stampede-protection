@@ -56,5 +56,6 @@ performance, `python-redis-lock` uses the
 [EVALSHA](https://redis.io/commands/evalsha) command so that the LUA script gets
 cached after the first time it is eval'd.
 
-`UNLOCK_SCRIPT not cached.` simply means that the LUA script to release a lock
-hasn't been cached by Redis yet.  It is safe to ignore this warning.
+`UNLOCK_SCRIPT not cached.` simply means that the LUA script hasn't been cached
+by Redis yet.  It is safe to ignore this warning, as long as it only appears
+once.
