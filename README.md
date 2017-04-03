@@ -1,6 +1,7 @@
 # Preventing Cache Stampedes Using `python-redis-lock`
-This is a companion repo for the blog post, "Preventing Cache Stampedes Using
-python-redis-lock" on the EFL Technology Blog.
+This is a companion repo for the blog post, ["Preventing Cache Stampedes Using
+python-redis-lock"](https://www.eflglobal.com/preventing-cache-stampedes-with-python-redis-lock/)
+on the EFL Technology Blog.
 
 It contains three example scripts that show how to use locks to prevent "cache
 stampedes" when cached values become stale:
