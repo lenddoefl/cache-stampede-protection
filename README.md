@@ -1,3 +1,5 @@
+[![EFL Technology Blog](https://www.eflglobal.com/wp-content/uploads/2017/01/EFL-Technology-Blog-Header-01-1.png)](https://www.eflglobal.com/category/technology/)
+
 # Preventing Cache Stampedes Using `python-redis-lock`
 This is a companion repo for the blog post, ["Preventing Cache Stampedes Using
 python-redis-lock"](https://www.eflglobal.com/preventing-cache-stampedes-with-python-redis-lock/)
