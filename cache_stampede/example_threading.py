@@ -5,21 +5,25 @@ across multiple threads within a single process.
 """
 
 from __future__ import absolute_import, division, print_function, \
-    unicode_literals
+  unicode_literals
 
-from threading import Thread, Lock, current_thread
+from distutils.version import LooseVersion
+from threading import Lock, Thread, current_thread
 from time import sleep
 
+from django import get_version
 from django.core.cache import DEFAULT_CACHE_ALIAS
 
-try:
+django_version = LooseVersion(get_version())
+if django_version.version[0:2] < [1, 7]:
+  # Django 1.6 and earlier
+  # noinspection PyUnresolvedReferences
+  from django.core.cache import get_cache
+  cache = get_cache(DEFAULT_CACHE_ALIAS)
+else:
   # Django 1.7 and later
   from django.core.cache import caches
   cache = caches[DEFAULT_CACHE_ALIAS]
-except ImportError:
-  # Django 1.6 and earlier
-  from django.core.cache import get_cache
-  cache = get_cache(DEFAULT_CACHE_ALIAS)
 
 def expensive_computation():
   """
@@ -33,6 +37,7 @@ def expensive_computation():
   result = 42
   print(current_thread().name, ': Finished expensive computation, result is', result)
   return result
+
 
 # Create a single lock for the cache.
 # We'll investigate more scalable approaches in the next section.
@@ -70,6 +75,7 @@ def maybe_cache(cache_key, func):
     print(current_thread().name, ': Got result', result, 'from cache')
 
   return result
+
 
 if __name__ == '__main__':
   # Initialize some threads for our cache stampede.

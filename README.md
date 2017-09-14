@@ -36,21 +36,21 @@ zsh):
 This is the "control group", showing what happens during a cache stampede.
 ```bash
 redis-cli -n 1 FLUSHDB
-DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_no_protection.py
+DJANGO_SETTINGS_MODULE="settings" python example_no_protection.py
 ```
 
 ### `threading.Lock` Example:
 This example uses `threading.Lock` to prevent a cache stampede.
 ```bash
 redis-cli -n 1 FLUSHDB
-DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_threading.py
+DJANGO_SETTINGS_MODULE="settings" python example_threading.py
 ```
 
 ### `python-redis-lock` Example:
 This example uses `python-redis-lock` to prevent a cache stampede.
 ```bash
 redis-cli -n 1 FLUSHDB
-for _ in {1..5}; do DJANGO_SETTINGS_MODULE="settings" python cache_stampede/example_redis.py & done
+for _ in {1..5}; do DJANGO_SETTINGS_MODULE="settings" python example_redis.py & done
 ```
 
 You may see a single `UNLOCK_SCRIPT not cached.` warning in the output.
