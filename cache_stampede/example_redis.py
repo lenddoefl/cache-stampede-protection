@@ -29,7 +29,7 @@ else:
 # Set up python-redis-lock client.
 # Note: unlike the ``threading.Lock`` example,
 # we don't initialize a global lock!
-from redis_lock import Lock
+import redis_lock
 redis_client = cache.get_client(None)
 
 
@@ -52,7 +52,7 @@ def maybe_cache(cache_key, func):
 
     # Note that we create a new Lock instance each time.
     # The lock name is used to synchronize access between processes.
-    with Lock(redis_client, name=cache_key + '_lock'):
+    with redis_lock.Lock(redis_client, name=cache_key + '_lock'):
 
 
       print(getpid(), ': Acquired lock')

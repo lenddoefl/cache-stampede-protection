@@ -7,8 +7,9 @@ across multiple threads within a single process.
 from __future__ import absolute_import, division, print_function, \
   unicode_literals
 
+import threading
 from distutils.version import LooseVersion
-from threading import Lock, Thread, current_thread
+from threading import Thread, current_thread
 from time import sleep
 
 from django import get_version
@@ -24,6 +25,7 @@ else:
   # Django 1.7 and later
   from django.core.cache import caches
   cache = caches[DEFAULT_CACHE_ALIAS]
+
 
 def expensive_computation():
   """
@@ -41,7 +43,7 @@ def expensive_computation():
 
 # Create a single lock for the cache.
 # We'll investigate more scalable approaches in the next section.
-cache_lock = Lock()
+cache_lock = threading.Lock()
 
 def maybe_cache(cache_key, func):
   """
