@@ -27,7 +27,7 @@ Set up the Django project (only has to be done once):
 2. `pip install -r requirements.txt`
 3. Ensure Redis is running, and configure `cache_stampede/settings.py:CACHES`
   if necessary (by default it is configured to connect to `localhost:6379`).
-4. `cd` to the root directory of the project.
+4. `cd` into the `cache_stampede` directory of the project.
 
 To run the example scripts, execute the following commands (tested in bash and
 zsh):
